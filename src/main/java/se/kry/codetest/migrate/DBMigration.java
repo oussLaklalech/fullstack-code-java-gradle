@@ -8,7 +8,15 @@ public class DBMigration {
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
     DBConnector connector = new DBConnector(vertx);
-    connector.query("CREATE TABLE IF NOT EXISTS service (name VARCHAR(128) NOT NULL, status VARCHAR(128))").setHandler(done -> {
+
+    String creationQuery = "create table service\n" +
+            "(\n" +
+            "    name varchar(40) NOT NULL,\n" +
+            "    url varchar(128) NOT NULL,\n" +
+            "    status varchar(20),\n" +
+            "    createdAt DATE\n" +
+            ")";
+    connector.query(creationQuery).setHandler(done -> {
       if(done.succeeded()){
         System.out.println("completed db migrations");
       } else {

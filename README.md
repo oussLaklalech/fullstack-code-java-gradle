@@ -11,7 +11,7 @@ Feel free to use any library or framework for the frontend, or none at all.
 Critical issues (required to complete the assignment):
 
 - Whenever the server is restarted, any added services disappear [OK]
-- There's no way to delete individual services
+- There's no way to delete individual services [OK]
 - We want to be able to name services and remember when they were added
 - The HTTP poller is not implemented
 

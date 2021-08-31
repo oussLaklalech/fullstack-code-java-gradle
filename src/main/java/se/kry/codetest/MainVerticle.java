@@ -2,7 +2,6 @@ package se.kry.codetest;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -12,7 +11,6 @@ import se.kry.codetest.model.Service;
 import se.kry.codetest.service.DatabaseService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +31,6 @@ public class MainVerticle extends AbstractVerticle {
 
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
-        services.add(new Service("https://www.kry.se", "UNKNOWN"));
 
         vertx.setPeriodic(1000 * 60, timerId -> poller.pollServices(services));
         setRoutes(router);
@@ -64,8 +61,12 @@ public class MainVerticle extends AbstractVerticle {
                         .stream()
                         .map(service ->
                                 new JsonObject()
+                                        .put("rowid", service.getRowid())
                                         .put("name", service.getName())
+                                        .put("url", service.getUrl())
+                                        .put("createdAt", service.getCreateAt())
                                         .put("status", service.getStatus()))
+
                         .collect(Collectors.toList());
                 req.response()
                         .putHeader("content-type", "application/json")
@@ -80,6 +81,19 @@ public class MainVerticle extends AbstractVerticle {
             JsonObject jsonBody = req.getBodyAsJson();
             // services.add(new Service(jsonBody.getString("url"), "UNKNOWN"));
             databaseService.addNewServiceToDatabase(new Service(jsonBody.getString("url"), "UNKNOWN"));
+            req.response()
+                    .putHeader("content-type", "text/plain")
+                    .end("OK");
+        });
+
+        /*
+         * [DELETE] delete a service
+         */
+        router.delete("/service").handler(req -> {
+            JsonObject jsonBody = req.getBodyAsJson();
+            databaseService.deleteServiceToDatabase(jsonBody.getInteger("rowid"));
+
+
             req.response()
                     .putHeader("content-type", "text/plain")
                     .end("OK");

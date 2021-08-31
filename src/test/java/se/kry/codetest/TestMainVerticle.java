@@ -28,7 +28,7 @@ public class TestMainVerticle {
   @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
   void start_http_server(Vertx vertx, VertxTestContext testContext) {
     WebClient.create(vertx)
-        .get(8080, "::1", "/service")
+        .get(8000, "::1", "/service")
         .send(response -> testContext.verify(() -> {
           assertEquals(200, response.result().statusCode());
           JsonArray body = response.result().bodyAsJsonArray();

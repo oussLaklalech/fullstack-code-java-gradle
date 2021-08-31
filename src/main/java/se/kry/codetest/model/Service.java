@@ -1,12 +1,34 @@
 package se.kry.codetest.model;
 
+import java.util.Date;
+
 /**
  * Service Model.
  */
 public class Service {
 
+    private Integer rowid;
     private String name;
+    private String url;
     private String status;
+    private Date createAt;
+
+    /**
+     * Constructor.
+     *
+     * @param rowid
+     * @param name
+     * @param url
+     * @param status
+     * @param createAt
+     */
+    public Service(Integer rowid, String name, String url, String status, Date createAt) {
+        this.rowid = rowid;
+        this.name = name;
+        this.url = url;
+        this.status = status;
+        this.createAt = createAt;
+    }
 
     /**
      * Constructor.
@@ -32,5 +54,29 @@ public class Service {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Integer getRowid() {
+        return rowid;
+    }
+
+    public void setRowid(Integer rowid) {
+        this.rowid = rowid;
     }
 }
