@@ -2,38 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style/style.css">
     <title>Welcome to KRY</title>
 </head>
 <body>
 
 <h1>KRY status poller</h1>
-<!--<ul id="service-list">-->
-<!--</ul>-->
-
 <div id="service_container"></div>
 
 <h2>Create a new service</h2>
 <div id="create-service">
     <form>
         <label for="service-name">Name</label><br>
-        <input type="text" id="service-name"><br>
+        <input class="form-control" type="text" id="service-name"><br>
 
         <label for="service-url">URL</label><br>
-        <input type="text" id="service-url" name="furl"><br>
+        <input class="form-control" type="text" id="service-url" name="furl"><br>
 
-        <label for="service-status">Status</label><br>
-        <input type="text" id="service-status" name="fstatus"><br>
-
-        <button id="post-service">Save</button>
+        <button class="btn btn-info" id="post-service">Save</button>
     </form>
 </div>
 
+<hr>
+<h2>List of calls</h2>
+<ul class="list-group" id="response-list">
+</ul>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="service-rowid-update">
+
+                <label for="service-name-update">Name</label><br>
+                <input class="form-control" type="text" id="service-name-update"><br>
+
+                <label for="service-url-update">URL</label><br>
+                <input class="form-control" type="text" id="service-url-update" name="furl"><br>
+
+                <button class="btn btn-info" id="put-service-update">Update</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="static/code.js"></script>
-    <script type="text/babel" src="static/service_container.js"></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="static/code.js"></script>
+<script type="text/babel" src="static/service_container.js"></script>
 </html>

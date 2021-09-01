@@ -21,27 +21,6 @@ class Table extends React.Component {
             })
             .then(function (serviceList) {
                 that.setState({services: serviceList});
-                // serviceList.forEach(service => {
-                //     var li = document.createElement("li");
-                //     li.appendChild(document.createTextNode(service.name + ': ' + service.status));
-                //
-                //     var removeBtn = document.createElement("BUTTON");
-                //     removeBtn.appendChild(document.createTextNode("Remove"));
-                //     li.appendChild(removeBtn);
-                //
-                //     removeBtn.onclick = evt => {
-                //         fetch('/service', {
-                //             method: 'delete',
-                //             headers: {
-                //                 'Accept': 'application/json, text/plain, */*',
-                //                 'Content-Type': 'application/json'
-                //             },
-                //             body: JSON.stringify({rowid: service.rowid})
-                //         }).then(res => location.reload());
-                //     }
-                //
-                //     listContainer.appendChild(li);
-                // });
             });
     }
 
@@ -66,20 +45,27 @@ class Table extends React.Component {
      */
     renderTableData() {
         return this.state.services.map((service, index) => {
-            const { rowid, name, url, status, createdAt } = service //destructuring
+            const { rowid, name, url, createdAt } = service
             return (
                 <tr key={rowid}>
                     <td>{rowid}</td>
                     <td>{name}</td>
                     <td>{url}</td>
-                    <td>{status}</td>
                     <td>{createdAt}</td>
                     <td>
-                        <button type="button" onClick={(e) => this.removeItem(rowid, e)} >Delete</button>
+                        <button className="btn btn-primary"  type="button" onClick={(e) => this.removeItem(rowid, e)} >Delete</button>
+                        <button data-toggle="modal" data-target="#myModal" type="button" className="btn btn-info edit-btn"
+                                onClick={(e) => this.prefilledUpdateForm(service, e)}>Edit</button>
                     </td>
                 </tr>
             )
         })
+    }
+
+    prefilledUpdateForm(service) {
+        document.querySelector('#service-name-update').value = service.name;
+        document.querySelector('#service-url-update').value = service.url;
+        document.querySelector('#service-rowid-update').value = service.rowid;
     }
 
     removeItem(id) {

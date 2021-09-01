@@ -1,40 +1,39 @@
 'use strict';
 
-const listContainer = document.querySelector('#service-list');
-let servicesRequest = new Request('/service');
-fetch(servicesRequest)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (serviceList) {
-        serviceList.forEach(service => {
-            var li = document.createElement("li");
-            li.appendChild(document.createTextNode(service.name + ': ' + service.status));
 
-            var removeBtn = document.createElement("BUTTON");
-            removeBtn.appendChild(document.createTextNode("Remove"));
-            li.appendChild(removeBtn);
+fetchListOfRequestResponse();
 
-            removeBtn.onclick = evt => {
-                fetch('/service', {
-                    method: 'delete',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({rowid: service.rowid})
-                }).then(res => location.reload());
-            }
+/**
+ * Fetch the list of responses and add to HTML list.
+ */
+function fetchListOfRequestResponse() {
+    const listContainer = document.querySelector('#response-list');
+    listContainer.innerHTML = "";
 
-            listContainer.appendChild(li);
+    let servicesRequest = new Request('/request-response');
+    fetch(servicesRequest)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (responseList) {
+            responseList.forEach(response => {
+                let li = document.createElement("li");
+                li.appendChild(document.createTextNode('[' + response.status + '] ' + response.url));
+                li.classList.add('list-group-item');
+                listContainer.appendChild(li);
+            });
         });
-    });
+}
+
+/**
+ * Call each 5 seconds.
+ */
+setInterval(fetchListOfRequestResponse, 5000);
 
 const saveButton = document.querySelector('#post-service');
 saveButton.onclick = evt => {
     let serviceName = document.querySelector('#service-name').value;
     let serviceUrl = document.querySelector('#service-url').value;
-    let serviceStatus = document.querySelector('#service-status').value;
 
     fetch('/service', {
         method: 'post',
@@ -42,6 +41,23 @@ saveButton.onclick = evt => {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name: serviceName, url: serviceUrl, status: serviceStatus})
+        body: JSON.stringify({name: serviceName, url: serviceUrl})
     }).then(res => location.reload());
 }
+
+const updateButton = document.querySelector('#put-service-update');
+updateButton.onclick = evt => {
+    let serviceRowid = document.querySelector('#service-rowid-update').value;
+    let serviceName = document.querySelector('#service-name-update').value;
+    let serviceUrl = document.querySelector('#service-url-update').value;
+
+    fetch('/service', {
+        method: 'put',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({rowid: serviceRowid, name: serviceName, url: serviceUrl})
+    }).then(res => console.log(res));
+}
+

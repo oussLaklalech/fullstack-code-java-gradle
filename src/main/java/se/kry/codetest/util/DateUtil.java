@@ -39,8 +39,6 @@ public class DateUtil {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-
-        System.out.println(creationDate);
         return creationDate;
     }
 }
