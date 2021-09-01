@@ -12,7 +12,7 @@ Critical issues (required to complete the assignment):
 
 - Whenever the server is restarted, any added services disappear [OK]
 - There's no way to delete individual services [OK]
-- We want to be able to name services and remember when they were added
+- We want to be able to name services and remember when they were added [OK]
 - The HTTP poller is not implemented
 
 Frontend/Web track:

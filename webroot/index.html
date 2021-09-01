@@ -2,16 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/style.css">
     <title>Welcome to KRY</title>
 </head>
 <body>
-    KRY status poller
-    <ul id="service-list">
-    </ul>
-    <input type="text" id="url-name">
-    <button id="post-service">Save</button>
+
+<h1>KRY status poller</h1>
+<!--<ul id="service-list">-->
+<!--</ul>-->
+
+<div id="service_container"></div>
+
+<h2>Create a new service</h2>
+<div id="create-service">
+    <form>
+        <label for="service-name">Name</label><br>
+        <input type="text" id="service-name"><br>
+
+        <label for="service-url">URL</label><br>
+        <input type="text" id="service-url" name="furl"><br>
+
+        <label for="service-status">Status</label><br>
+        <input type="text" id="service-status" name="fstatus"><br>
+
+        <button id="post-service">Save</button>
+    </form>
+</div>
+
 
 </body>
-<script src="static/code.js">
-</script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="static/code.js"></script>
+    <script type="text/babel" src="static/service_container.js"></script>
 </html>

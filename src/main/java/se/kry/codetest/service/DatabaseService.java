@@ -5,9 +5,11 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
 import se.kry.codetest.DBConnector;
 import se.kry.codetest.model.Service;
+import se.kry.codetest.util.DateUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class DatabaseService {
 
@@ -59,7 +61,7 @@ public class DatabaseService {
                     String status = row.getString(3);
                     String createdAt = row.getString(4);
 
-                    services.add(new Service(rowid, name, url, status, null));
+                    services.add(new Service(rowid, name, url, status, DateUtil.formatStringToDate(createdAt)));
                 }
 
                 ret.complete(services);

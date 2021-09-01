@@ -9,6 +9,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import se.kry.codetest.model.Service;
 import se.kry.codetest.service.DatabaseService;
+import se.kry.codetest.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,12 @@ public class MainVerticle extends AbstractVerticle {
                 });
     }
 
+    /**
+     * Set routes.
+     * Contains the services: GET POST DELETE and PUT.
+     *
+     * @param router
+     */
     private void setRoutes(Router router) {
         router.route("/*").handler(StaticHandler.create());
 
@@ -57,6 +64,8 @@ public class MainVerticle extends AbstractVerticle {
             databaseService.getAllServices().setHandler(res -> {
                 List<Service> listServices = res.result();
                 System.out.println("getAllServices");
+
+
                 List<JsonObject> jsonServices = listServices
                         .stream()
                         .map(service ->
@@ -64,8 +73,8 @@ public class MainVerticle extends AbstractVerticle {
                                         .put("rowid", service.getRowid())
                                         .put("name", service.getName())
                                         .put("url", service.getUrl())
-                                        .put("createdAt", service.getCreateAt())
-                                        .put("status", service.getStatus()))
+                                        .put("status", service.getStatus())
+                                        .put("createdAt", DateUtil.formatDateToString(service.getCreateAt())))
 
                         .collect(Collectors.toList());
                 req.response()
@@ -79,8 +88,7 @@ public class MainVerticle extends AbstractVerticle {
          */
         router.post("/service").handler(req -> {
             JsonObject jsonBody = req.getBodyAsJson();
-            // services.add(new Service(jsonBody.getString("url"), "UNKNOWN"));
-            databaseService.addNewServiceToDatabase(new Service(jsonBody.getString("url"), "UNKNOWN"));
+            databaseService.addNewServiceToDatabase(new Service(jsonBody.getString("name"), jsonBody.getString("status"), jsonBody.getString("url")));
             req.response()
                     .putHeader("content-type", "text/plain")
                     .end("OK");

@@ -1,3 +1,5 @@
+'use strict';
+
 const listContainer = document.querySelector('#service-list');
 let servicesRequest = new Request('/service');
 fetch(servicesRequest)
@@ -30,13 +32,16 @@ fetch(servicesRequest)
 
 const saveButton = document.querySelector('#post-service');
 saveButton.onclick = evt => {
-    let urlName = document.querySelector('#url-name').value;
+    let serviceName = document.querySelector('#service-name').value;
+    let serviceUrl = document.querySelector('#service-url').value;
+    let serviceStatus = document.querySelector('#service-status').value;
+
     fetch('/service', {
         method: 'post',
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({url: urlName})
+        body: JSON.stringify({name: serviceName, url: serviceUrl, status: serviceStatus})
     }).then(res => location.reload());
 }

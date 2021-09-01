@@ -10,6 +10,7 @@ import java.util.Random;
 public class BackgroundPoller {
 
   public Future<List<String>> pollServices(List<Service> services) {
+    System.out.println("Poller log !!");
     //TODO
     return Future.failedFuture("TODO");
   }

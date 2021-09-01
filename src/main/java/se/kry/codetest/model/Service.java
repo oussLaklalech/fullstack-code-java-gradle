@@ -34,10 +34,12 @@ public class Service {
      * Constructor.
      * @param name
      * @param status
+     * @param url
      */
-    public Service(String name, String status) {
+    public Service(String name, String status, String url) {
         this.name = name;
         this.status = status;
+        this.url = url;
     }
 
     public String getName() {
