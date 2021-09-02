@@ -38,7 +38,7 @@ h1 {
 
 
 #post-service {
-    /*margin-top: 1em;*/
+    margin-top: 1em;
 }
 
 input {
@@ -56,14 +56,30 @@ input {
 }
 
 #create-service {
-    width: 20%;
+    width: 40%;
 }
-
-/*label {*/
-/*    display: inline-block;*/
-/*    margin-bottom: .5rem;*/
-/*}*/
 
 .edit-btn {
     margin-left: 1em;
+}
+
+.margin-t-2 {
+    margin-top: 2em;
+}
+
+.alert {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+    animation: mask 2s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes mask {
+    0% {
+        clip-path: polygon(0px 0px, 0% 0, 0% 100%, 0px 100%);
+    }
+    100% {
+        clip-path: polygon(0px 0px, 100% 0, 100% 100%, 0px 100%);
+    }
 }

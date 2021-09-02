@@ -16,9 +16,9 @@ Critical issues (required to complete the assignment):
 - The HTTP poller is not implemented [OK]
 
 Frontend/Web track:
-- We want full create/update/delete functionality for services
+- We want full create/update/delete functionality for services [OK]
 - The results from the poller are not automatically shown to the user (you have to reload the page to see results) [OK]
-- We want to have informative and nice looking animations on add/remove services
+- We want to have informative and nice looking animations on add/remove services [OK]
 
 Backend track
 - Simultaneous writes sometimes causes strange behavior

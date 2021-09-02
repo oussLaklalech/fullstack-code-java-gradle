@@ -27,6 +27,10 @@ public class MainVerticle extends AbstractVerticle {
     DatabaseService databaseService;
     private BackgroundPoller poller;
 
+    /**
+     * Start.
+     * @param startFuture
+     */
     @Override
     public void start(Future<Void> startFuture) {
         connector = new DBConnector(vertx);

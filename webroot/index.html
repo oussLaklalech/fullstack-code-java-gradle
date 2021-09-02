@@ -9,24 +9,22 @@
 </head>
 <body>
 
+<!-- Service Container component (Table + submit form) -->
 <h1>KRY status poller</h1>
 <div id="service_container"></div>
 
-<h2>Create a new service</h2>
-<div id="create-service">
-    <form>
-        <label for="service-name">Name</label><br>
-        <input class="form-control" type="text" id="service-name"><br>
-
-        <label for="service-url">URL</label><br>
-        <input class="form-control" type="text" id="service-url" name="furl"><br>
-
-        <button class="btn btn-info" id="post-service">Save</button>
-    </form>
+<!-- ALERTS -->
+<div class="row">
+    <div class="col-md-4 margin-t-2">
+        <div class="alert alert-success fade show" id="alert-success" role="alert"></div>
+        <div class="alert alert-danger fade show" id="alert-danger" role="alert"></div>
+    </div>
 </div>
 
 <hr>
-<h2>List of calls</h2>
+
+<!-- List of Requests (refreshed every 10 seconds ) -->
+<h2>List of poller requests</h2>
 <ul class="list-group" id="response-list">
 </ul>
 
@@ -59,6 +57,7 @@
 </div>
 
 </body>
+<!-- JS SCRIPTS -->
 <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

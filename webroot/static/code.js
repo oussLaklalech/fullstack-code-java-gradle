@@ -1,6 +1,6 @@
 'use strict';
 
-
+$(".alert").hide();
 fetchListOfRequestResponse();
 
 /**
@@ -26,25 +26,15 @@ function fetchListOfRequestResponse() {
 }
 
 /**
- * Call each 5 seconds.
+ * Call every 10 seconds.
  */
-setInterval(fetchListOfRequestResponse, 5000);
+setInterval(fetchListOfRequestResponse, 10000);
 
-const saveButton = document.querySelector('#post-service');
-saveButton.onclick = evt => {
-    let serviceName = document.querySelector('#service-name').value;
-    let serviceUrl = document.querySelector('#service-url').value;
-
-    fetch('/service', {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: serviceName, url: serviceUrl})
-    }).then(res => location.reload());
-}
-
+/**
+ * On click on update.
+ *
+ * @type {Element}
+ */
 const updateButton = document.querySelector('#put-service-update');
 updateButton.onclick = evt => {
     let serviceRowid = document.querySelector('#service-rowid-update').value;
@@ -57,7 +47,28 @@ updateButton.onclick = evt => {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({rowid: serviceRowid, name: serviceName, url: serviceUrl})
-    }).then(res => console.log(res));
+        body: JSON.stringify({rowid: parseInt(serviceRowid), name: serviceName, url: serviceUrl})
+    }).then(res => {
+        if(res.status < 400) {
+            $('#myModal').modal('hide');
+            showAlert('#alert-success', 'The service has been edited successfully');
+            location.reload();
+        } else {
+            showAlert('#alert-danger', 'Error occurred while trying to add a new service');
+        }
+    }).catch(err => {
+        showAlert('#alert-danger', 'Error occurred while trying to edit the service');
+    });
 }
 
+/**
+ * Show Alert.
+ * @param id
+ * @param message
+ */
+function showAlert(id, message) {
+    document.querySelector(id).innerHTML = '';
+    document.querySelector(id).appendChild(document.createTextNode(message));
+    $(id).show();
+    setTimeout(() => $(id).hide(), 3000);
+}
